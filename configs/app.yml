@@ -1,0 +1,6 @@
+app:
+  webapi:
+    port: :8080
+    name: "webapi"
+  data:
+    name: "dataservice"
