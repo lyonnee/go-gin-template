@@ -1,6 +1,0 @@
-app:
-  webapi:
-    port: :8080
-    name: "webapi-dev"
-  data:
-    name: "dataservice-dev"

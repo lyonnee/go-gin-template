@@ -1,9 +1,13 @@
 package main
 
-import (
-	"app-layout/cmd"
-)
+import "github.com/LyonNee/app-layout/cmd"
 
-func main(){
+//go:generate swag init
+//go:generate swag fmt
+
+// @securityDefinitions.apikey  ApiKeyAuth
+// @in                          header
+// @name                        Authorization
+func main() {
 	cmd.Execute()
 }

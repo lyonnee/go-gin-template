@@ -1,0 +1,46 @@
+definitions:
+  user.LoginIM:
+    properties:
+      password:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  user.RegisterIM:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /user/session:
+    post:
+      consumes:
+      - application/json
+      description: 通过账户密码登录
+      parameters:
+      - description: register input model
+        in: body
+        name: RegisterIM
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterIM'
+      produces:
+      - application/json
+      responses: {}
+      summary: 登录
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
