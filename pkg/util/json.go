@@ -1,13 +1,15 @@
 package util
 
 import (
-	"regexp"
+	"bytes"
+	"encoding/json"
 )
 
-func CompressJson(jsonStr string) string {
-	regexpSource := `\n|\t|(\s)(\s)|(\s)(^[A-Z]|[a-z]|[0-9]|#|\+|-|\*\/|=)`
+func CompressJson(jsonStr string) (string, error) {
+	dst := bytes.Buffer{}
+	if err := json.Compact(&dst, []byte(jsonStr)); err != nil {
+		return "", err
+	}
 
-	result := regexp.MustCompile(regexpSource).ReplaceAllString(jsonStr, "")
-
-	return result
+	return dst.String(), nil
 }

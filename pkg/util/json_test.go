@@ -80,7 +80,7 @@ func TestJson(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		got := CompressJson(c.input)
+		got, _ := CompressJson(c.input)
 		if got != c.want {
 			t.Errorf("结果错误，got=%q, want=%q", got, c.want)
 		}
