@@ -31,6 +31,40 @@ const docTemplate = `{
                 "summary": "登录",
                 "parameters": [
                     {
+                        "description": "login input model",
+                        "name": "LoginIM",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.LoginIM"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response-int"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/user": {
+            "post": {
+                "description": "输入账户密码用户信息注册",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "注册",
+                "parameters": [
+                    {
                         "description": "register input model",
                         "name": "RegisterIM",
                         "in": "body",
@@ -45,6 +79,20 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "response.Response-int": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "integer"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
         "user.LoginIM": {
             "type": "object",
             "properties": {

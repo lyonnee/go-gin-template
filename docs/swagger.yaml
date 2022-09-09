@@ -1,4 +1,13 @@
 definitions:
+  response.Response-int:
+    properties:
+      code:
+        type: integer
+      data:
+        type: integer
+      msg:
+        type: string
+    type: object
   user.LoginIM:
     properties:
       password:
@@ -26,6 +35,28 @@ paths:
       - application/json
       description: 通过账户密码登录
       parameters:
+      - description: login input model
+        in: body
+        name: LoginIM
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginIM'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-int'
+      summary: 登录
+      tags:
+      - user
+  /user/user:
+    post:
+      consumes:
+      - application/json
+      description: 输入账户密码用户信息注册
+      parameters:
       - description: register input model
         in: body
         name: RegisterIM
@@ -35,7 +66,7 @@ paths:
       produces:
       - application/json
       responses: {}
-      summary: 登录
+      summary: 注册
       tags:
       - user
 securityDefinitions:

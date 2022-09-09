@@ -10,7 +10,9 @@ import (
 	"github.com/LyonNee/app-layout/pkg/errors"
 )
 
-func Register(ctx context.Context, name string, age uint8, phoneNum string, password string) (uint64, error) {
+type UserLogic struct{}
+
+func (logic *UserLogic) Register(ctx context.Context, name string, age uint8, phoneNum string, password string) (uint64, error) {
 	conn, err := mysql.GetConn(ctx)
 	if err != nil {
 		return 0, err
@@ -34,7 +36,7 @@ func Register(ctx context.Context, name string, age uint8, phoneNum string, pass
 	return uid, nil
 }
 
-func Login(ctx context.Context, phoneNum string, password string) (uint64, string, string, error) {
+func (logic *UserLogic) Login(ctx context.Context, phoneNum string, password string) (uint64, string, string, error) {
 	conn, err := mysql.GetConn(ctx)
 	if err != nil {
 		return 0, "", "", err

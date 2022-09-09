@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/LyonNee/app-layout/config"
 	"github.com/LyonNee/app-layout/database"
 	"github.com/LyonNee/app-layout/ginserver"
-	"github.com/LyonNee/app-layout/pkg/config"
 	"github.com/LyonNee/app-layout/pkg/log"
 	"github.com/spf13/cobra"
 )

@@ -7,7 +7,6 @@ import (
 	"github.com/LyonNee/app-layout/controller"
 	"github.com/LyonNee/app-layout/docs"
 	"github.com/LyonNee/app-layout/pkg/log"
-	"github.com/LyonNee/app-layout/router"
 	"github.com/spf13/viper"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
@@ -18,11 +17,12 @@ var srv *http.Server
 
 func Run() {
 	log.ZapLogger().Debug("Web API Service run")
+
 	// 获取路由
-	router := router.Get()
+	r := GetRouter()
 
 	// 初始化handler(注册路由)
-	controller.Initialize()
+	controller.Initialize(r)
 
 	// swag 初始化
 	docs.SwaggerInfo.Title = "app-layout Web API"
@@ -30,11 +30,11 @@ func Run() {
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	srv = &http.Server{
 		Addr:    viper.GetString("app.port"),
-		Handler: router,
+		Handler: r,
 	}
 
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {

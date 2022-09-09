@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func initViper(env string) {
+func InitViper(env string) {
 	workDir, _ := os.Getwd()
 	viper.SetConfigName("config." + env)
 	viper.SetConfigType("yaml")

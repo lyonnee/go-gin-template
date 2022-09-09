@@ -1,4 +1,4 @@
-package router
+package ginserver
 
 import (
 	"sync"
@@ -31,18 +31,11 @@ func newRouter() {
 	})
 }
 
-func Get() *gin.Engine {
+func GetRouter() *gin.Engine {
 	if router == nil {
 		once.Do(
 			newRouter,
 		)
 	}
 	return router
-}
-
-func GetV1() *gin.RouterGroup {
-	r := Get()
-	v1 := r.Group("/api/v1")
-
-	return v1
 }
