@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/LyonNee/app-layout/config"
 	"github.com/LyonNee/app-layout/controller"
 	"github.com/LyonNee/app-layout/docs"
 	"github.com/LyonNee/app-layout/pkg/log"
-	"github.com/spf13/viper"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 	"go.uber.org/zap"
@@ -33,7 +33,7 @@ func Run() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	srv = &http.Server{
-		Addr:    viper.GetString("app.port"),
+		Addr:    config.Instance().App.Port,
 		Handler: r,
 	}
 

@@ -3,8 +3,8 @@ package log
 import (
 	"os"
 
+	"github.com/LyonNee/app-layout/config"
 	"github.com/natefinch/lumberjack"
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -20,15 +20,15 @@ func ZapLogger() *zap.Logger {
 
 func initZap() {
 	writeSyncer := getLogWriter(
-		viper.GetString("log.filename"),
-		viper.GetInt("log.maxSize"),
-		viper.GetInt("log.maxBackups"),
-		viper.GetInt("log.maxAge"),
+		config.Instance().Log.Filename,
+		config.Instance().Log.MaxSize,
+		config.Instance().Log.MaxBackups,
+		config.Instance().Log.MaxAge,
 	)
 
 	encoder := getEncoder()
 	var level = new(zapcore.Level)
-	err := level.UnmarshalText([]byte(viper.GetString("log.level")))
+	err := level.UnmarshalText([]byte(config.Instance().Log.Level))
 
 	if err != nil {
 		return

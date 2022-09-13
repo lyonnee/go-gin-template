@@ -15,6 +15,7 @@ var (
 
 func newRouter() {
 	log.ZapLogger().Debug("Init Router")
+
 	router = gin.New()
 
 	router.Use(middleware.GinLogger(log.ZapLogger()))

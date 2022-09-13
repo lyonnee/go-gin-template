@@ -13,6 +13,6 @@ func Initialize(env string) {
 	viper.Unmarshal(&instance)
 }
 
-func GetConfig() *Config {
+func Instance() *Config {
 	return &instance
 }

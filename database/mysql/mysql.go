@@ -6,17 +6,16 @@ import (
 
 	"time"
 
+	"github.com/LyonNee/app-layout/config"
 	"github.com/LyonNee/app-layout/pkg/log"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/spf13/viper"
 )
 
 var db *sql.DB
 
 func Connection() {
 	var err error
-	db, err = sql.Open("mysql",
-		viper.GetString("mysql.dsn"))
+	db, err = sql.Open("mysql", config.Instance().Mysql.DSN)
 	if err != nil {
 		log.ZapLogger().Fatal(err.Error())
 	}
@@ -46,7 +45,7 @@ func GetConn(ctx context.Context) (*sql.Conn, error) {
 	return conn, nil
 }
 
-//@developer  仅用于单测时Mock数据库
+// @developer  仅用于单测时Mock数据库
 func MockDB(mockDB *sql.DB) {
 	db = mockDB
 }
