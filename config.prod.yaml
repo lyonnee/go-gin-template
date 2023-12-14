@@ -9,4 +9,4 @@ log:
   maxBackups: 15
 
 mysql:
-  dsn: root:admin123@tcp(localhost:3306)/app-layout?charset=utf8mb4
+  dsn: root:admin123@tcp(localhost:3306)/app-layout?charset=utf8mb4&parseTime=true

@@ -24,7 +24,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user.LoginIM"
+                            "$ref": "#/definitions/iomodel.LoginIM"
                         }
                     }
                 ],
@@ -32,7 +32,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response-int"
+                            "$ref": "#/definitions/response.Response-iomodel_LoginOM"
                         }
                     }
                 }
@@ -58,30 +58,23 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user.RegisterIM"
+                            "$ref": "#/definitions/iomodel.RegisterIM"
                         }
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response-string"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
-        "response.Response-int": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "integer"
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
-        "user.LoginIM": {
+        "iomodel.LoginIM": {
             "type": "object",
             "properties": {
                 "password": {
@@ -92,7 +85,18 @@
                 }
             }
         },
-        "user.RegisterIM": {
+        "iomodel.LoginOM": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "iomodel.RegisterIM": {
             "type": "object",
             "properties": {
                 "age": {
@@ -105,6 +109,34 @@
                     "type": "string"
                 },
                 "phone_number": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.Response-iomodel_LoginOM": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/iomodel.LoginOM"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.Response-string": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "msg": {
                     "type": "string"
                 }
             }

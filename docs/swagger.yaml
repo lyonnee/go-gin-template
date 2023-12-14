@@ -1,21 +1,19 @@
 definitions:
-  response.Response-int:
-    properties:
-      code:
-        type: integer
-      data:
-        type: integer
-      msg:
-        type: string
-    type: object
-  user.LoginIM:
+  iomodel.LoginIM:
     properties:
       password:
         type: string
       phone_number:
         type: string
     type: object
-  user.RegisterIM:
+  iomodel.LoginOM:
+    properties:
+      token:
+        type: string
+      uid:
+        type: integer
+    type: object
+  iomodel.RegisterIM:
     properties:
       age:
         type: integer
@@ -24,6 +22,24 @@ definitions:
       password:
         type: string
       phone_number:
+        type: string
+    type: object
+  response.Response-iomodel_LoginOM:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/iomodel.LoginOM'
+      msg:
+        type: string
+    type: object
+  response.Response-string:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      msg:
         type: string
     type: object
 info:
@@ -40,14 +56,14 @@ paths:
         name: LoginIM
         required: true
         schema:
-          $ref: '#/definitions/user.LoginIM'
+          $ref: '#/definitions/iomodel.LoginIM'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/response.Response-int'
+            $ref: '#/definitions/response.Response-iomodel_LoginOM'
       summary: 登录
       tags:
       - user
@@ -62,10 +78,14 @@ paths:
         name: RegisterIM
         required: true
         schema:
-          $ref: '#/definitions/user.RegisterIM'
+          $ref: '#/definitions/iomodel.RegisterIM'
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-string'
       summary: 注册
       tags:
       - user
