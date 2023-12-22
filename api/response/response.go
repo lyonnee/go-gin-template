@@ -6,49 +6,46 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// base response
 type Response[T any] struct {
 	Code uint16 `json:"code"`
 	Msg  string `json:"msg"`
 	Data T      `json:"data"`
 }
 
-func New[T any](code uint16, msg string, data T) Response[T] {
-	return Response[T]{
+func New[T any](code uint16, msg string, data T) *Response[T] {
+	return &Response[T]{
 		Code: code,
 		Msg:  msg,
 		Data: data,
 	}
 }
 
-// base response
-func NewResponse[T any](c *gin.Context, code uint16, msg string, data T) {
+func Ok[T any](c *gin.Context, data T) {
+	resp := New(CODE_CALL_SUCCESS, "", data)
 	c.JSON(
 		http.StatusOK,
-		Response[T]{
-			Code: code,
-			Msg:  msg,
-			Data: data,
-		},
+		resp,
 	)
 }
 
-func Ok[T any](c *gin.Context, data T) {
-	NewResponse(c, CODE_CALL_SUCCESS, "", data)
-}
-
 func Fail(c *gin.Context, code uint16, msg string) {
-	NewResponse(c, code, msg, "")
+	resp := New(code, msg, "")
+	c.JSON(
+		http.StatusOK,
+		resp,
+	)
 }
 
 // extensions response
 func InvalidQueryArgument(c *gin.Context) {
-	NewResponse(c, CODE_INVALID_QUERY_ARGUMENT, "invalid query argument", "")
+	Fail(c, CODE_INVALID_QUERY_ARGUMENT, MSG_INVALID_QUERY_ARGUMENT)
 }
 
 func InvalidPathArgument(c *gin.Context) {
-	NewResponse(c, CODE_INVALID_PATH_ARGUMENT, "invalid path argument", "")
+	Fail(c, CODE_INVALID_PATH_ARGUMENT, MSG_INVALID_PATH_ARGUMENT)
 }
 
 func InvalidBodyArgument(c *gin.Context) {
-	NewResponse(c, CODE_INVALID_BODY_ARGUMENT, "invalid body argument", "")
+	Fail(c, CODE_INVALID_BODY_ARGUMENT, MSG_INVALID_BODY_ARGUMENT)
 }
